@@ -38,10 +38,9 @@ if (name.trim() === "") {
 );
 
 if (existing) {
-  return res.status(200).json({
-    status: "success",
-    message: "Profile already exists",
-    data: existing
+  return res.status(409).json({
+    status: "error",
+    message: "Profile already exists"
   });
 }
 
