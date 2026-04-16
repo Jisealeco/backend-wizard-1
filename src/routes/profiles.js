@@ -12,7 +12,7 @@ router.post("/", async (req, res) => {
   try {
     const { name } = req.body;
 
-    if (!name || name.trim() === "") {
+  if (name === undefined) {
   return res.status(400).json({
     status: "error",
     message: "Missing or empty name"
@@ -23,6 +23,13 @@ if (typeof name !== "string") {
   return res.status(422).json({
     status: "error",
     message: "Invalid type"
+  });
+}
+
+if (name.trim() === "") {
+  return res.status(400).json({
+    status: "error",
+    message: "Missing or empty name"
   });
 }
 
@@ -41,25 +48,25 @@ if (existing) {
     const { gender, age, country } = await fetchAll(name);
 
     if (!gender.gender || gender.count === 0) {
-      return res.status(502).json({
-        status: "error",
-        message: "Genderize returned an invalid response"
-      });
-    }
+  return res.status(502).json({
+    status: "error",
+    message: "Genderize returned an invalid response"
+  });
+}
 
-    if (age.age === null) {
-      return res.status(502).json({
-        status: "error",
-        message: "Agify returned an invalid response"
-      });
-    }
+if (age.age === null) {
+  return res.status(502).json({
+    status: "error",
+    message: "Agify returned an invalid response"
+  });
+}
 
-    if (!country.country || country.country.length === 0) {
-      return res.status(502).json({
-        status: "error",
-        message: "Nationalize returned an invalid response"
-      });
-    }
+if (!country.country || country.country.length === 0) {
+  return res.status(502).json({
+    status: "error",
+    message: "Nationalize returned an invalid response"
+  });
+}
 
     const topCountry = getTopCountry(country.country);
 
@@ -84,11 +91,11 @@ if (existing) {
     });
 
   } catch (error) {
-    return res.status(502).json({
-      status: "error",
-      message: "Upstream or server failure"
-    });
-  }
+  return res.status(502).json({
+    status: "error",
+    message: "Upstream or server failure"
+  });
+}
 });
 
 
