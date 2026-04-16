@@ -7,7 +7,7 @@ This API accepts a name, calls the Genderize, Agify, and Nationalize APIs, proce
 ---
 
 ## Base URL
-
+backend-wizard-1-production.up.railway.app
 
 ---
 
