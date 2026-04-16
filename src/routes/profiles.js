@@ -38,11 +38,13 @@ if (name.trim() === "") {
 );
 
 if (existing) {
-  return res.status(409).json({
-    status: "error",
-    message: "Profile already exists"
+  return res.status(200).json({
+    status: "success",
+    message: "Profile already exists",
+    data: existing
   });
 }
+
 
     const { gender, age, country } = await fetchAll(name);
 
@@ -70,17 +72,17 @@ if (!country.country || country.country.length === 0) {
     const topCountry = getTopCountry(country.country);
 
     const profile = {
-      id: uuidv7(),
-      name: name,
-      gender: gender.gender,
-      gender_probability: gender.probability,
-      sample_size: gender.count,
-      age: age.age,
-      age_group: getAgeGroup(age.age),
-      country_id: topCountry.country_id,
-      country_probability: topCountry.probability,
-      created_at: new Date().toISOString()
-    };
+  id: uuidv7(),
+  name,
+  gender: gender.gender,
+  gender_probability: gender.probability,
+  sample_size: gender.count,
+  age: age.age,
+  age_group: getAgeGroup(age.age),  
+  country_id: topCountry.country_id,
+  country_probability: topCountry.probability,
+  created_at: new Date().toISOString()
+};
 
     profiles.push(profile);
 
