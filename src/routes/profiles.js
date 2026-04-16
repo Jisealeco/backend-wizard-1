@@ -12,31 +12,31 @@ router.post("/", async (req, res) => {
   try {
     const { name } = req.body;
 
-    if (!name) {
-      return res.status(400).json({
-        status: "error",
-        message: "Missing or empty name"
-      });
-    }
+    if (!name || name.trim() === "") {
+  return res.status(400).json({
+    status: "error",
+    message: "Missing or empty name"
+  });
+}
 
-    if (typeof name !== "string") {
-      return res.status(422).json({
-        status: "error",
-        message: "Invalid type"
-      });
-    }
+if (typeof name !== "string") {
+  return res.status(422).json({
+    status: "error",
+    message: "Invalid type"
+  });
+}
 
-    const existing = profiles.find(
-      p => p.name.toLowerCase() === name.toLowerCase()
-    );
+   const existing = profiles.find(
+  p => p.name.toLowerCase() === name.toLowerCase()
+);
 
-    if (existing) {
-      return res.status(200).json({
-        status: "success",
-        message: "Profile already exists",
-        data: existing
-      });
-    }
+if (existing) {
+  return res.status(200).json({
+    status: "success",
+    message: "Profile already exists",
+    data: existing
+  });
+}
 
     const { gender, age, country } = await fetchAll(name);
 
